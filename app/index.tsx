@@ -1,10 +1,9 @@
-import { Text, View, TextInput } from "react-native";
-import LoginScreen from "@/components/Tugas/LoginScreen";
+import HomeScreen from "@/components/Tugas/HomeScreen";
 
 export default function Index() {
   return (
     <>
-      <LoginScreen />
+      <HomeScreen />
     </>
   );
 }
