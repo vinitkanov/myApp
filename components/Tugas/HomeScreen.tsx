@@ -9,10 +9,10 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
-const notes = [
+const notes: Note[] = [
   {
     id: "001",
-    image: "@/assets/images/logo.png",
+    image: require("@/assets/images/image_1.png"),
     title: "Belajar Mobile App",
     description:
       "Belajar Mobile App adalah aplikasi yang membantu Anda belajar mobile app development.",
@@ -20,16 +20,32 @@ const notes = [
   },
   {
     id: "002",
-    image: "@/assets/images/logo.png",
+    image: require("@/assets/images/image_2.png"),
     title: "Belajar React Native",
     description:
       "Belajar React Native adalah aplikasi yang membantu Anda belajar React Native development.",
     date: "2023-01-02",
   },
+  {
+    id: "003",
+    image: require("@/assets/images/image_3.png"),
+    title: "Belajar TypeScript",
+    description:
+      "Belajar TypeScript adalah aplikasi yang membantu Anda belajar TypeScript development.",
+    date: "2023-01-03",
+  },
+  {
+    id: "004",
+    image: require("@/assets/images/image_4.png"),
+    title: "Belajar React",
+    description:
+      "Belajar React adalah aplikasi yang membantu Anda belajar React development.",
+    date: "2023-01-04",
+  },
 ];
 
 type Note = {
-  id: number;
+  id: string;
   image: string;
   title: string;
   description: string;
@@ -39,10 +55,7 @@ type Note = {
 const NoteItem = ({ item }: { item: Note }) => {
   return (
     <View style={styles.card}>
-      <Image
-        style={{ width: 48, height: 48 }}
-        source={require("@/assets/images/logo.png")}
-      />
+      <Image style={{ width: 48, height: 48 }} source={item.image} />
       <View style={styles.cardContainer}>
         <Text style={styles.cardTitle}>{item.title}</Text>
         <Text style={styles.cardDesc}>{item.description}</Text>
@@ -67,6 +80,8 @@ export default function HomeScreen() {
           data={notes}
           renderItem={({ item }) => <NoteItem item={item} />}
           keyExtractor={(item) => item.id.toString()}
+          contentContainerStyle={{ gap: 10 }}
+          ListEmptyComponent={() => <EmptyData />}
         />
       </View>
       <TouchableOpacity style={styles.fab}>
@@ -75,6 +90,21 @@ export default function HomeScreen() {
     </SafeAreaView>
   );
 }
+
+const EmptyData = () => {
+  return (
+    <View style={styles.emptyContainer}>
+      <Image
+        source={require("@/assets/images/empty.png")}
+        style={{ width: 100, height: 100 }}
+      />
+      <Text style={styles.emptyTitle}>No notes yet</Text>
+      <Text style={styles.emptyDescription}>
+        Start creating your first note!
+      </Text>
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -135,5 +165,23 @@ const styles = StyleSheet.create({
   cardDate: {
     fontSize: 14,
     color: "#999",
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    gap: 8,
+    marginTop: 300,
+  },
+  emptyTitle: {
+    fontSize: 20,
+    fontWeight: 700,
+    marginTop: 20,
+    marginBottom: 10,
+  },
+  emptyDescription: {
+    fontSize: 16,
+    color: "gray",
+    marginBottom: 20,
   },
 });
